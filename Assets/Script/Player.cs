@@ -7,12 +7,12 @@ public class Player : MonoBehaviour
     {
         inventory = new Inventory(21);
     }
-    public void DropItem(Collectable item)
+    public void DropItem(Item item)
     {
         Vector3 spawnLocation = transform.position;
 
         Vector3 spawnOffset = Random.insideUnitCircle *1.40f;
-      Collectable droppedItem=  Instantiate(item, spawnLocation + spawnOffset, Quaternion.identity);
+      Item droppedItem=  Instantiate(item, spawnLocation + spawnOffset, Quaternion.identity);
         droppedItem.rb2b.AddForce(spawnOffset * .2f, ForceMode2D.Impulse);
     }
     private void Update()

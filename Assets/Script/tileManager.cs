@@ -12,7 +12,14 @@ public class tileManager : MonoBehaviour
     {
         foreach(var position in interactableMap.cellBounds.allPositionsWithin)
         {
-            interactableMap.SetTile(position, hiddenInteractableTile);
+            TileBase tile = interactableMap.GetTile(position);
+            if(tile!= null && tile.name == "Interactable")
+            {
+
+                interactableMap.SetTile(position, hiddenInteractableTile);
+            }
+
+ 
         }
     }
     public bool IsInteractable(Vector3Int position)
