@@ -6,6 +6,7 @@ using static Inventory;
 public class SlotUI : MonoBehaviour
 {
     public int slotId;
+    public Inventory inventory;
     public Image itemIcon;
     public TextMeshProUGUI quantityText;
     [SerializeField] private GameObject highLight;

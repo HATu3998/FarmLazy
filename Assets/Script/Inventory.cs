@@ -18,9 +18,20 @@ public class Inventory
             count = 0;
             maxAllowed = 99;
         }
-        public bool CanAddItem()
+        public bool IsEmpty
         {
-            if(count < maxAllowed)
+            get
+            {
+                if(itemName =="" && count == 0)
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
+        public bool CanAddItem(string itemName)
+        {
+            if(count < maxAllowed && this.itemName ==itemName)
             {
                 return true;
             }
@@ -31,6 +42,13 @@ public class Inventory
             this.itemName = item.data.itemName;
             this.icon = item.data.icon;
             count++;
+        }
+        public void AddItem(string itemName,Sprite icon,int maxAllowed)
+        {
+            this.itemName =  itemName;
+            this.icon =  icon;
+            count++;
+            this.maxAllowed = maxAllowed;
         }
         public void RemoveItem()
         {
@@ -58,7 +76,7 @@ public class Inventory
     {
         foreach(Slot slot in slots)
         {
-            if(slot.itemName == item.data.itemName && slot.CanAddItem())
+            if(slot.itemName == item.data.itemName && slot.CanAddItem(item.data.itemName))
             {
                 slot.AddItem(item);
                 return;
@@ -84,6 +102,20 @@ public class Inventory
             for(int i = 0; i < numToRemove; i++)
             {
                 Remove(index);
+            }
+        }
+    }
+
+    public void MoveSlot(int fromIndex,int toIndex ,Inventory toInventory, int numToMove=1)
+    {
+        Slot fromSlot = slots[fromIndex];
+        Slot toSlot =toInventory. slots[toIndex];
+        if(toSlot.IsEmpty || toSlot.CanAddItem(fromSlot.itemName))
+        {
+            for(int i = 0; i < numToMove; i++)
+            {
+                toSlot.AddItem(fromSlot.itemName, fromSlot.icon, fromSlot.maxAllowed);
+                fromSlot.RemoveItem();
             }
         }
     }

@@ -5,6 +5,8 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public ItemManager itemManager;
     public tileManager tileManager;
+    public UIManager uiManager;
+    public Player player;
     private void Awake()
     {
         if(instance != null && instance != this)
@@ -17,8 +19,10 @@ public class GameManager : MonoBehaviour
         }
         DontDestroyOnLoad(this.gameObject);
         itemManager = GetComponent<ItemManager>();
+        uiManager = GetComponent<UIManager>();
         //tileManager = GetComponent<tileManager>();
         tileManager = FindObjectOfType<tileManager>();
+        player = FindObjectOfType<Player>();
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
