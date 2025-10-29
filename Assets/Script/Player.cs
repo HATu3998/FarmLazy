@@ -3,7 +3,11 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public InventoryManager inventory;
- 
+   private tileManager tileManager;
+    private void Start()
+    {
+        tileManager = GameManager.instance.tileManager;
+    }
     private void Awake()
     {
         inventory = GetComponent<InventoryManager>();
@@ -32,13 +36,18 @@ public class Player : MonoBehaviour
             else if (GameManager.instance.tileManager == null) Debug.Log("TileManager is NULL");
             else
             {
-                Vector3Int position = new Vector3Int((int)transform.position.x, (int)transform.position.y, 0);
-                if (GameManager.instance.tileManager.IsInteractable(position))
-                   { Debug.Log("tile is interactable");
-                    GameManager.instance.tileManager.SetInteracted(position);
+                 if(tileManager!= null)
+                {
+                    Vector3Int position = new Vector3Int((int)transform.position.x, (int)transform.position.y, 0);
+                    string tileName = tileManager.GetTileName(position);
+                    if (!string.IsNullOrWhiteSpace(tileName))
+                    {
+                        if(tileName== "Interactable" && inventory.toolbar.selectedSlot.itemName=="Hoe")
+                        {
+                            tileManager.SetInteracted(position);
+                        }
+                    }
                 }
-                else
-                    Debug.Log("Tile not interactable at " + position);
             }
         }
     }

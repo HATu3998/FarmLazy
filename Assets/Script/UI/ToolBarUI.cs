@@ -16,6 +16,8 @@ public class ToolBarUI : MonoBehaviour
             selectedSlot = toolbarSlots[index];
             selectedSlot.setHighLight(true); 
             Debug.Log("selected slot: " + selectedSlot.name);
+
+            GameManager.instance.player.inventory.toolbar.SelectSlot(index);
         }
     }
     private void CheckAlphaNumbericKeys()
